@@ -1,8 +1,7 @@
 /VENV
-/dates_split
-/EVI_split_data
-/firemask_array
-/korea_firms
-/wind_data
-KMA_ASOS_observation_location_info.csv
-MODIS_NDVI_EVI_15kmgrid_2019_2023.csv
+/_dates_split
+/_EVI_split_data
+/_firemask_array
+/_korea_firms
+/_wind_data
+/_tmp_data
