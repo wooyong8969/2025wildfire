@@ -47,18 +47,15 @@ class FiremaskDataset(Dataset):
     def __getitem__(self, idx):
         row = self.data.iloc[idx]
 
-        # Load prev_firemask
         prev_mask_path = row['prev_firemask']
         prev_mask = Image.open(prev_mask_path)
         prev_mask = self.image_transform(prev_mask)
 
-        # Load today_firemask (target)
         today_mask_path = row['today_firemask']
         today_mask = Image.open(today_mask_path)
         today_mask = self.mask_transform(today_mask)
-        today_mask = (today_mask > 0.5).float()  # 255 -> 1, binary
+        today_mask = (today_mask > 0.5).float()  # 255 -> 1
 
-        # Numeric features
         numeric_values = [float(row[col]) for col in self.numeric_cols]
         numeric = torch.tensor(numeric_values, dtype=torch.float32)
 
