@@ -91,6 +91,8 @@
 ## 🖼️ 예측 결과 예시 (Visualization Examples)
 
 아래는 모델이 전날 화재 마스크와 기상 정보를 입력받아, 당일 산불 마스크를 예측한 결과입니다.
+<img width="2281" height="691" alt="image" src="https://github.com/user-attachments/assets/950ed0f1-47e3-4e3e-91ab-a3d9ed0d6bdf" />
+<img width="2400" height="694" alt="image" src="https://github.com/user-attachments/assets/3418cf06-f11f-465b-8672-599c9b4e3334" />
 
 
 
