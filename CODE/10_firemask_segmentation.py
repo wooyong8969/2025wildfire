@@ -71,7 +71,7 @@ class MultiModalUNet(nn.Module):
     def __init__(self, num_numeric_features):
         super().__init__()
 
-        # CNN encoder for image (input: 1x150x150)
+        # CNN
         self.encoder = nn.Sequential(
             nn.Conv2d(1, 16, 3, padding=1), nn.ReLU(),
             nn.MaxPool2d(2),  # 75x75
@@ -79,7 +79,7 @@ class MultiModalUNet(nn.Module):
             nn.MaxPool2d(2),  # 37x37
         )
 
-        # MLP for numeric input
+        # MLP
         self.mlp = nn.Sequential(
             nn.Linear(num_numeric_features, 64),
             nn.ReLU(),
@@ -87,7 +87,6 @@ class MultiModalUNet(nn.Module):
             nn.ReLU()
         )
 
-        # Project numeric feature to image shape and concat
         self.numeric_to_image = nn.Linear(32, 32 * 37 * 37)
 
         # Decoder
@@ -96,7 +95,7 @@ class MultiModalUNet(nn.Module):
             nn.ReLU(),
             nn.ConvTranspose2d(32, 16, 2, stride=2, output_padding=1),  # 74 -> 149
             nn.ReLU(),
-            nn.Conv2d(16, 1, 3, padding=1)  # keep at 149x149
+            nn.Conv2d(16, 1, 3, padding=1)  # 149x149
         )
 
     def forward(self, image, numeric):
@@ -107,7 +106,6 @@ class MultiModalUNet(nn.Module):
         x_combined = torch.cat([x_img, x_num_proj], dim=1)  # (B, 64, 37, 37)
         out = self.decoder(x_combined)  # (B, 1, 149, 149)
 
-        # 최종 출력 크기 보정
         out = F.interpolate(out, size=(150, 150), mode='bilinear', align_corners=False)
         return out
 
