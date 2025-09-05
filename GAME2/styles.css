@@ -1,0 +1,275 @@
+/* ---------- Reset / Base ---------- */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans KR', 'Helvetica Neue', Arial, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  color: #0f172a; /* slate-900 */
+  background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+}
+
+h1 { margin: 0; font-size: 1.75rem; }
+.subtitle { color: #475569; font-size: .95rem; }
+
+/* ---------- Layout ---------- */
+.app-header {
+  padding: 20px;
+  text-align: center;
+  background: #ffffffaa;
+  backdrop-filter: saturate(140%) blur(6px);
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 20px auto;
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 16px;
+  padding: 0 16px;
+}
+
+.panel {
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 30px rgba(15,23,42,0.06);
+  padding: 16px;
+}
+
+.panel-title {
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 12px;
+}
+
+/* ---------- Grid Board ---------- */
+.grid {
+  --cols: 10;
+  --rows: 10;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  grid-template-rows: repeat(var(--rows), 1fr);
+  gap: 6px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 10px;
+  border: 1px dashed #cbd5e1;
+}
+
+.cell {
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  border: 1px solid transparent;
+  transition: transform .06s ease, box-shadow .2s ease, background-color .2s ease;
+  background: #ffffff;
+}
+
+.cell:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(30,41,59,0.08);
+}
+
+.cell:focus-visible {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99,102,241,.2);
+}
+
+.cell.normal { background: #ffffff; }
+.cell.onfire { background: #fecaca; }     /* red-200 */
+.cell.water { background: #93c5fd; }     /* blue-300 */
+.cell.onfire.water { background: #fca5a5; } /* 물이 있어도 불이 난 경우 */
+
+.legend {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .85rem;
+  color: #334155;
+}
+
+.badge::before {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+}
+
+.badge.onfire::before { background: #fecaca; }
+.badge.water::before { background: #93c5fd; }
+.badge.normal::before { background: #ffffff; }
+
+.controls {
+  margin-top: 14px;
+  display: flex;
+  gap: 8px;
+}
+
+.controls.stacked {
+  flex-direction: column;
+}
+
+.btn {
+  appearance: none;
+  border: 1px solid transparent;
+  background: #ffffff;
+  color: #0f172a;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .06s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+}
+
+.btn:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(30,41,59,0.1); }
+.btn:active { transform: translateY(0); }
+
+.btn.primary {
+  background: #4f46e5;  /* indigo-600 */
+  color: #fff;
+  border-color: #4338ca;
+}
+.btn.primary:hover { background: #4338ca; }
+
+.btn.secondary {
+  background: #f1f5f9;  /* slate-100 */
+  border-color: #cbd5e1;
+}
+
+.btn.ghost {
+  background: transparent;
+  border-color: #cbd5e1;
+}
+
+.btn.danger {
+  background: #ef4444;
+  border-color: #dc2626;
+  color: #fff;
+}
+.btn.danger:hover { background: #dc2626; }
+
+/* ---------- Right Panel ---------- */
+.scoreboard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 10px 0 12px;
+}
+
+.score-item {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 10px;
+  text-align: center;
+}
+
+.score-item.small { opacity: .9; }
+
+.round-score {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 10px;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.label {
+  font-size: .8rem;
+  color: #475569;
+}
+
+.value {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-top: 4px;
+}
+
+.value.small {
+  font-size: 1.1rem;
+}
+
+.explain {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: .95rem;
+  color: #1e293b;
+}
+
+.notes {
+  margin-top: 8px;
+  background: #fff;
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 8px 12px;
+}
+
+.app-footer {
+  margin: 20px auto 40px;
+  text-align: center;
+  color: #64748b;
+  font-size: .9rem;
+}
+
+/* ---------- Wind UI ---------- */
+.wind-box {
+  margin: 12px 0;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+.wind-title {
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 8px;
+}
+.wind-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.wind-arrow {
+  width: 64px;
+  height: 64px;
+  color: #1f2937;
+  transform-origin: 50% 50%;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 6px;
+}
+.wind-meta {
+  font-size: .95rem;
+  color: #334155;
+}
+.meta-label { color: #64748b; margin-right: 4px; }
+.meta-note { color: #64748b; font-size: .8rem; margin-top: 4px; }
+
+
+
+/* ---------- Responsive ---------- */
+@media (max-width: 920px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+}

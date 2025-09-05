@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Wildfire Predictor — 10x10</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <h1>Wildfire Predictor</h1>
+      <div class="subtitle">10×10 격자에서 다음 산불을 예측해보세요</div>
+    </header>
+
+    <main class="container">
+      <section class="panel panel-left">
+        <div class="panel-title">현재 시점 격자</div>
+        <div id="grid" class="grid" role="grid" aria-label="현재 시점 격자"></div>
+
+        <div class="legend">
+          <span class="badge onfire" aria-label="현재 화재">현재 화재</span>
+          <span class="badge water" aria-label="물 배치">물 배치</span>
+          <span class="badge normal" aria-label="일반 칸">일반 칸</span>
+        </div>
+
+
+      </section>
+
+      <section class="panel panel-right">
+        <div class="panel-title">다음 시점 평가</div>
+
+        <div class="scoreboard">
+          <div class="score-item">
+            <div class="label">라운드</div>
+            <div class="value"><span id="round">1</span></div>
+          </div>
+          <div class="score-item">
+            <div class="label">총 점수</div>
+            <div class="value"><span id="score">0</span></div>
+          </div>
+          <div class="score-item">
+            <div class="label">남은 물</div>
+            <div class="value"><span id="waterRemaining">5</span></div>
+          </div>
+        </div>
+        
+        <div class="round-score">
+          <div class="label">이번 라운드 점수</div>
+          <div class="value"><span id="delta">0</span></div>
+        </div>
+
+        <div class="wind-box">
+          <div class="wind-title">바람 정보 (라운드별 랜덤)</div>
+          <div class="wind-content">
+            <svg id="windArrow" class="wind-arrow" viewBox="0 0 100 100" aria-hidden="true">
+              <defs>
+                <marker id="arrowhead" markerWidth="4" markerHeight="4" refX="2" refY="2" orient="auto">
+                  <polygon points="0 0, 4 2, 0 4"></polygon>
+                </marker>
+              </defs>
+              <line x1="50" y1="80" x2="50" y2="20" stroke-width="6" stroke="currentColor" marker-end="url(#arrowhead)"/>
+            </svg>
+            <div class="wind-meta">
+              <div><span class="meta-label">방향:</span> <span id="windDir">—</span>°</div>
+              <div><span class="meta-label">속도:</span> <span id="windSpeed">—</span> m/s</div>
+              <div class="meta-note">0°=동(→), 90°=남(↓), 180°=서(←), 270°=북(↑)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="explain">
+          <ul>
+            <li>격자 칸을 클릭하여 <strong>물을 배치</strong>하세요. (라운드당 최대 5개)</li>
+            <li><strong>평가하기</strong>를 누르면 바람(방향·속도)이 갱신되고, 바람 방향성을 고려해 불이 번집니다.</li>
+            <li>물이 있는 칸에 불이 번지면 <strong>불이 꺼지고 +1점</strong>을 획득합니다.</li>
+            <li><strong>60칸 이상이 불타면 게임 오버</strong>입니다.</li>
+          </ul>
+        </div>
+
+        <div class="controls stacked">
+          <button id="nextBtn" class="btn primary" aria-label="평가하기">평가하기</button>
+          <button id="resetBtn" class="btn danger" aria-label="모두 초기화">모두 초기화</button>
+        </div>
+
+
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <span>© 2025 Wildfire Predictor Mini-game</span>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
